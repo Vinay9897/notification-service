@@ -1,9 +1,8 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { NotificationService } from './notification.service';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
 
-@ApiTags('notifications')
-@Controller('notifications')
+@Controller('notification')
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}
 
@@ -11,12 +10,24 @@ export class NotificationController {
   @ApiOperation({ summary: 'Send email notification' })
   @ApiResponse({ status: 201, description: 'Email sent successfully.' })
   @ApiResponse({ status: 400, description: 'Bad request.' })
-  @ApiBody({ schema: { example: { to: 'vinayyadav91190@gmail.com', subject: 'Hello', body: 'World' }}})
+  @ApiBody({ 
+    schema: { 
+      example: { 
+        to: '', 
+        subject: 'Hello', 
+        body: 'World', 
+        urgency: 'high',
+        userActivity: 'active'
+      }
+    }
+  })
   async sendEmailNotification(
     @Body('to') to: string,
     @Body('subject') subject: string,
     @Body('body') body: string,
+    @Body('urgency') urgency: 'high' | 'medium' | 'low',
+    @Body('userActivity') userActivity: 'active' | 'inactive',
   ) {
-    return this.notificationService.sendNotification(to, subject, body);
+    return this.notificationService.notifyUser(to, subject, body, urgency, userActivity);
   }
 }

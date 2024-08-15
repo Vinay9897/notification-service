@@ -24,7 +24,7 @@ export class EmailService {
   async sendEmail(to: string, subject: string, body: string) {
     return this.transporter.sendMail({
       from: process.env.GMAIL_USER,
-      to: 'vinayyadav91190@gmail.com',
+      to: to,
       subject,
       text: body,
     });

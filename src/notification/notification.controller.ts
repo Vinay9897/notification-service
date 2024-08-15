@@ -14,10 +14,10 @@ export class NotificationController {
     schema: { 
       example: { 
         to: '', 
-        subject: 'Hello', 
-        body: 'World', 
-        urgency: 'high',
-        userActivity: 'active'
+        subject: '', 
+        body: '', 
+        urgency: '',
+        userActivity: ''
       }
     }
   })
@@ -25,8 +25,8 @@ export class NotificationController {
     @Body('to') to: string,
     @Body('subject') subject: string,
     @Body('body') body: string,
-    @Body('urgency') urgency: 'high' | 'medium' | 'low',
-    @Body('userActivity') userActivity: 'active' | 'inactive',
+    @Body('urgency') urgency: 'string',
+    @Body('userActivity') userActivity: 'string',
   ) {
     return this.notificationService.notifyUser(to, subject, body, urgency, userActivity);
   }

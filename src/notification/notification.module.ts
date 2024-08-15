@@ -10,4 +10,5 @@ import { ScheduleModule } from '@nestjs/schedule';
   providers: [NotificationService, EmailService, BackupEmailService],
   controllers: [NotificationController],
 })
+
 export class NotificationModule {}
